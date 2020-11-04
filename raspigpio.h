@@ -9,7 +9,10 @@
 
 #include <assert.h>
 
-#define GPIO_BASE                0x7E215000 /* GPIO controller for BCM2711 on page 83, Register view */
+#define BCM2711_PERI_BASE        0x7E000000
+#define GPIO_BASE                (BCM2711_PERI_BASE + 0x200000) /* GPIO controller */
+
+//#define GPIO_BASE                0x7E215000 /* GPIO controller for BCM2711 on page 83, Register view */
 
 // I/O access
 volatile unsigned *gpio;
