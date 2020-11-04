@@ -38,8 +38,9 @@ volatile unsigned *gpio;
 //#define GPIO_SET *(gpio+7)  // sets   bits which are 1 ignores bits which are 0
 //#define GPIO_CLR *(gpio+10) // clears bits which are 1 ignores bits which are 0
 
-//#define GPIO_SET(g) *(gpio+(g<32)?0x1C:0x20) |= (g<32)?(g<<1):((1<<(32-g))  // sets   bits which are 1 ignores bits which are 0
-//#define GPIO_CLR(g) *(gpio+(g<32)?0x28:0x2C) |= (g<32)?(g<<1):((1<<(32-g))// clears bits which are 1 ignores bits which are 0
+// only for GPIO 0 to 31
+#define GPIO_SET(g) *(gpio+0x1C) |= (g<<1)  // sets   bits which are 1 ignores bits which are 0
+#define GPIO_CLR(g) *(gpio+0x28) |= (g<<1)// clears bits which are 1 ignores bits which are 0
 
 #define GET_GPIO(g) (*(gpio+13)&(1<<g)) // 0 if LOW, (1<<g) if HIGH
 
@@ -104,13 +105,15 @@ int main(int argc, char **argv)
      for (g=7; g<=11; g++)
      {
        //GPIO_SET = 1<<g;
-       gpio_set(g);
+       //gpio_set(g);
+       GPIO_SET(g);
        sleep(1);
      }
      for (g=7; g<=11; g++)
      {
        //GPIO_CLR = 1<<g;
-       gpio_clr(g);
+       //gpio_clr(g);
+       GPIO_CLR(g);
        sleep(1);
      }
   }
