@@ -22,9 +22,6 @@
 int  mem_fd;
 void *gpio_map;
 
-// I/O access
-volatile unsigned *gpio;
-
 void setup_io();
 
 void printButton(int g)
