@@ -55,7 +55,7 @@ void gpio_set(int g)
   {
     *(gpio+0x1C) |= (g<<1);
   }else{
-    *(gpio+0x20) |= ((1<<(32-g));
+    *(gpio+0x20) |= ((1<<(32-g)));
   }
 }
 void gpio_clr(int g)
@@ -65,7 +65,7 @@ void gpio_clr(int g)
   {
     *(gpio+0x28) |= (g<<1);
   }else{
-    *(gpio+0x2C) |= ((1<<(32-g));
+    *(gpio+0x2C) |= ((1<<(32-g)));
   }
 }
 void printButton(int g)
