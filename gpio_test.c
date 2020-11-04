@@ -111,7 +111,7 @@ void setup_io()
       printf("mmap error %d\n", (int)gpio_map);//errno also set!
       exit(-1);
    }
-  printf("gpio_map = %d\n", (int)gpio_map);//errno also set!
+  printf("gpio_map = 0x%p\n", gpio_map);//errno also set!
 
    // Always use volatile pointer!
    gpio = (volatile unsigned *)gpio_map;
