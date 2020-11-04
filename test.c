@@ -49,26 +49,6 @@ volatile unsigned *gpio;
 
 void setup_io();
 
-void gpio_set(int g)
-{
-  assert(g>=0 && g<=57);
-  if (g<32)
-  {
-    *(gpio+0x1C) |= (g<<1);
-  }else{
-    *(gpio+0x20) |= ((1<<(32-g)));
-  }
-}
-void gpio_clr(int g)
-{
-  assert(g>=0 && g<=57);
-  if (g<32)
-  {
-    *(gpio+0x28) |= (g<<1);
-  }else{
-    *(gpio+0x2C) |= ((1<<(32-g)));
-  }
-}
 void printButton(int g)
 {
   if (GET_GPIO(g)) // !=0 <-> bit is 1 <- port is HIGH=3.3V
@@ -105,14 +85,12 @@ int main(int argc, char **argv)
      for (g=7; g<=11; g++)
      {
        //GPIO_SET = 1<<g;
-       //gpio_set(g);
        GPIO_SET(g);
        sleep(1);
      }
      for (g=7; g<=11; g++)
      {
        //GPIO_CLR = 1<<g;
-       //gpio_clr(g);
        GPIO_CLR(g);
        sleep(1);
      }
