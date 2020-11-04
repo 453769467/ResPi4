@@ -8,9 +8,9 @@
 
 // Access from ARM Running Linux
 
-#define BCM2708_PERI_BASE        0x7E000000
-#define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
-
+#define BCM2708_PERI_BASE        0x3F000000
+#define BCM2711_PERI_BASE        0xFE000000
+#define GPIO_BASE                (BCM2711_PERI_BASE + 0x200000) /* GPIO controller */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,25 +67,16 @@ int main(int argc, char **argv)
   * so at least you still have your code changes written to the SD-card! *
  \************************************************************************/
 
-  // Set GPIO pins 7-11 to output
-  for (g=7; g<=11; g++)
-  {
-    INP_GPIO(g); // must use INP_GPIO before we can use OUT_GPIO
-    OUT_GPIO(g);
-  }
+  // Set GPIO pin 21 to output
+  INP_GPIO(21); // must use INP_GPIO before we can use OUT_GPIO
+  OUT_GPIO(21);
 
-  for (rep=0; rep<10; rep++)
+  for (rep=0; rep<10000; rep++)
   {
-     for (g=7; g<=11; g++)
-     {
-       GPIO_SET = 1<<g;
-       sleep(1);
-     }
-     for (g=7; g<=11; g++)
-     {
-       GPIO_CLR = 1<<g;
-       sleep(1);
-     }
+     GPIO_SET = 1<<21;
+     GPIO_SET = 1<<21;
+     GPIO_CLR = 1<<21;
+     GPIO_CLR = 1<<21;
   }
 
   return 0;
