@@ -104,7 +104,7 @@ int main(int argc, char **argv)
      for (g=7; g<=11; g++)
      {
        //GPIO_SET = 1<<g;
-       gpio_set(g)
+       gpio_set(g);
        sleep(1);
      }
      for (g=7; g<=11; g++)
