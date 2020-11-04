@@ -13,7 +13,6 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include <assert.h>
-#include <errno.h> 
 
 #include "raspigpio.h"
 
@@ -82,7 +81,6 @@ int main(int argc, char **argv)
 //
 void setup_io()
 {
-  extern int errno;
    /* open /dev/mem */
    if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
       printf("can't open /dev/mem \n");
@@ -105,7 +103,6 @@ void setup_io()
 
    if (gpio_map == MAP_FAILED) {
       printf("mmap error %d\n", (int)gpio_map);//errno also set!
-      printf("Mesg:%s\n",strerror(errno)); 
       exit(-1);
    }
 
