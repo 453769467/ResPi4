@@ -86,6 +86,8 @@ void setup_io()
       printf("can't open /dev/mem \n");
       exit(-1);
    }
+  
+   printf("mem_fd = %d\n", (int)mem_fd);//Michael
 
    /* mmap GPIO */
    gpio_map = mmap(
