@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <assert.h>
 
 #define PAGE_SIZE (4*1024)
 #define BLOCK_SIZE (4*1024)
@@ -37,8 +38,8 @@ volatile unsigned *gpio;
 //#define GPIO_SET *(gpio+7)  // sets   bits which are 1 ignores bits which are 0
 //#define GPIO_CLR *(gpio+10) // clears bits which are 1 ignores bits which are 0
 
-#define GPIO_SET(g) *(gpio+(g<32)?0x1C:0x20) |= (g<32)?(g<<1):((1<<(32-g))  // sets   bits which are 1 ignores bits which are 0
-#define GPIO_CLR(g) *(gpio+(g<32)?0x28:0x2C) |= (g<32)?(g<<1):((1<<(32-g))// clears bits which are 1 ignores bits which are 0
+//#define GPIO_SET(g) *(gpio+(g<32)?0x1C:0x20) |= (g<32)?(g<<1):((1<<(32-g))  // sets   bits which are 1 ignores bits which are 0
+//#define GPIO_CLR(g) *(gpio+(g<32)?0x28:0x2C) |= (g<32)?(g<<1):((1<<(32-g))// clears bits which are 1 ignores bits which are 0
 
 #define GET_GPIO(g) (*(gpio+13)&(1<<g)) // 0 if LOW, (1<<g) if HIGH
 
@@ -47,6 +48,26 @@ volatile unsigned *gpio;
 
 void setup_io();
 
+void gpio_set(int g)
+{
+  assert(g>=0 && g<=57);
+  if (g<32)
+  {
+    *(gpio+0x1C) |= (g<<1);
+  }else{
+    *(gpio+0x20) |= ((1<<(32-g));
+  }
+}
+void gpio_clr(int g)
+{
+  assert(g>=0 && g<=57);
+  if (g<32)
+  {
+    *(gpio+0x28) |= (g<<1);
+  }else{
+    *(gpio+0x2C) |= ((1<<(32-g));
+  }
+}
 void printButton(int g)
 {
   if (GET_GPIO(g)) // !=0 <-> bit is 1 <- port is HIGH=3.3V
@@ -83,13 +104,13 @@ int main(int argc, char **argv)
      for (g=7; g<=11; g++)
      {
        //GPIO_SET = 1<<g;
-       GPIO_SET(g);
+       gpio_set(g)
        sleep(1);
      }
      for (g=7; g<=11; g++)
      {
        //GPIO_CLR = 1<<g;
-       GPIO_CLR(g);
+       gpio_clr(g);
        sleep(1);
      }
   }
