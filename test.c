@@ -101,7 +101,7 @@ void setup_io()
       0         //Offset to GPIO peripheral
    );
    */
-  gpio_map = mmap(NULL, 0xB4, PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, 0);
+  gpio_map = mmap(NULL, 0xB4, PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, 0x00200000);
 
    close(mem_fd); //No need to keep mem_fd open after mmap
 
