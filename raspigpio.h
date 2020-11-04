@@ -9,6 +9,9 @@
 
 #define GPIO_BASE                0x7E215000 /* GPIO controller for BCM2711 on page 83, Register view */
 
+// I/O access
+volatile unsigned *gpio;
+
 // GPIO setup macros. Always use INP_GPIO(x) before using OUT_GPIO(x) or SET_GPIO_ALT(x,y)
 #define INP_GPIO(g) *(gpio+((g)/10)) &= ~(7<<(((g)%10)*3))
 #define OUT_GPIO(g) *(gpio+((g)/10)) |=  (1<<(((g)%10)*3))
