@@ -90,6 +90,7 @@ void setup_io()
    printf("mem_fd = %d\n", (int)mem_fd);//Michael
 
    /* mmap GPIO */
+  /*
    gpio_map = mmap(
       NULL,             //Any adddress in our space will do
       BLOCK_SIZE,       //Map length
@@ -99,6 +100,8 @@ void setup_io()
       //GPIO_BASE         //Offset to GPIO peripheral
       0         //Offset to GPIO peripheral
    );
+   */
+  gpio_map = (uint32_t *)mmap(NULL, 0xB4, PROT_READ|PROT_WRITE, MAP_SHARED, mem_fd, 0);
 
    close(mem_fd); //No need to keep mem_fd open after mmap
 
