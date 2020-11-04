@@ -21,7 +21,8 @@ volatile unsigned *gpio;
 #define GPIO_SET(g) *(gpio+0x1C) |= (g<<1)  // sets   bits which are 1 ignores bits which are 0
 #define GPIO_CLR(g) *(gpio+0x28) |= (g<<1)// clears bits which are 1 ignores bits which are 0
 
-#define GET_GPIO(g) (*(gpio+13)&(1<<g)) // 0 if LOW, (1<<g) if HIGH
+// only for GPIO 0 to 31
+#define GET_GPIO(g) (*(gpio+0x34)&(1<<g)) // 0 if LOW, (1<<g) if HIGH
 
 #define GPIO_PULL *(gpio+37) // Pull up/pull down
 #define GPIO_PULLCLK0 *(gpio+38) // Pull up/pull down clock
